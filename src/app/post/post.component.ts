@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog,MatDialogConfig, MatBottomSheet } from '@angular/material';
 import { PopUpComponent } from '../pop-up/pop-up.component';
 import { PopUpWindowComponent } from '../pop-up-window/pop-up-window.component';
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'app-post',
@@ -18,6 +19,8 @@ export class PostComponent implements OnInit {
     let max = document.documentElement.scrollHeight;
     // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
     let scrollPosition = window.pageYOffset;
+    this.loggedUser = this.mainService.getUserFromLocalStorage();
+    // console.log(this.loggedUser);
     if(this.loggedUser == null){
       if(scrollPosition >= (max - (max/2.5)))
       {
@@ -31,10 +34,13 @@ export class PostComponent implements OnInit {
    
   
 
-  constructor( private popUp:MatBottomSheet) { }
+  constructor( private popUp:MatBottomSheet,
+               private mainService:MainService 
+              ) { }
+
   ngOnInit(): void {
 
-    this.loggedUser = localStorage.getItem('user');
+    this.loggedUser = localStorage.getItem('userData');
     //console.log(this.loggedUser)
   
   }

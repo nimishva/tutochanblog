@@ -17,13 +17,8 @@ export class HomeComponent implements OnInit {
   }
 
   loadPost(){
-    console.log(this.mainService.getCount())
-    if(this.mainService.getCount() >= 3){
-      this.router.navigate(['/login']);
-    }else{
-      this.mainService.updateCount();
+  
       this.router.navigate(['/post']);
-    }
 
   }
 

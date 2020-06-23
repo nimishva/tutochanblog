@@ -2,6 +2,7 @@ import { Component, OnInit , OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { MatBottomSheetRef} from '@angular/material';
+import { MainService} from '../main.service';
 
 import { AuthService ,GoogleLoginProvider ,SocialUser } from 'angularx-social-login';
 
@@ -14,7 +15,8 @@ export class PopUpWindowComponent implements OnInit {
   iconGoogle = faGoogle;
   constructor( private router:Router,
                private bottomSheetref:MatBottomSheetRef<PopUpWindowComponent>,
-               private auth:AuthService
+               private auth:AuthService,
+               private mainService:MainService
              ) { }
 
     ngOnInit() {
@@ -37,7 +39,7 @@ export class PopUpWindowComponent implements OnInit {
     signUpGoogle(){
      let signInData = this.auth.signIn(GoogleLoginProvider.PROVIDER_ID);
      signInData.then((user)=>{
-        localStorage.setItem('user',user.email);
+        this.mainService.addUserToLocalStorage(user.email);
         this.bottomSheetref.dismiss();
      })
      .catch((err)=>{

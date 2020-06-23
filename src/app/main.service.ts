@@ -8,11 +8,11 @@ export class MainService {
   constructor() { }
 
 
-  updateCount(){
-    this.count++;
+  addUserToLocalStorage(data){
+    localStorage.setItem('userData',data);
   }
-  getCount(){
-    return this.count;
+  getUserFromLocalStorage(){
+    return localStorage.getItem('userData');
   }
 
 }
