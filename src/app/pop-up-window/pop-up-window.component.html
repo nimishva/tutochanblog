@@ -1,0 +1,24 @@
+<div class="container p-5">
+    <form class="example-form text-center">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Username">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password">
+        </mat-form-field>
+            <button mat-raised-button color="warn">Login</button>
+        
+
+      </form>
+
+
+      <div class="row">
+          <div class="col-md-12 pt-4 text-center">
+            Dont have account? signup with <a (click)="signUpGoogle()">Google <fa-icon [icon]="iconGoogle"></fa-icon></a>
+          </div>
+      </div>
+
+</div>
