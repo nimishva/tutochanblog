@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
     this.loggedUser = this.mainService.getUserFromLocalStorage();
     // console.log(this.loggedUser);
     if(this.loggedUser == null){
-      if(scrollPosition >= (max - (max/2.5)))
+      if(scrollPosition >= (max - (max/1.8)))
       {
         this.popUp.open(PopUpWindowComponent,{
           disableClose:true

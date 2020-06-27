@@ -10,6 +10,8 @@
           class="text-center"
           id="contactForm"
           novalidate
+          #signin = "ngForm"
+          (ngSubmit)="onSubmit(signin)"
         >
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
@@ -19,6 +21,10 @@
                 class="form-control"
                 placeholder="Email Address"
                 id="email"
+                ngModel
+                #email = "ngModel"
+                name = "email"
+                email
                 required
                 data-validation-required-message="Please enter your email address."
               />
@@ -33,6 +39,9 @@
               class="form-control"
               placeholder="Password"
               id="password"
+              ngModel
+              #password = "ngModel"
+              name = "password"
               required
               data-validation-required-message="Please enter your Passowrd."
             />
@@ -45,6 +54,7 @@
             type="submit"
             class="btn btn-primary"
             id="sendMessageButton"
+            [disabled]="signin.form.invalid"
           >
             Submit
           </button>
