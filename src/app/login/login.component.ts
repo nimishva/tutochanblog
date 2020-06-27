@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { NgForm } from '@angular/forms';
 import { MainService } from '../main.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,13 @@ export class LoginComponent implements OnInit {
 
   constructor( private mainService:MainService,
                private router:Router,
-               private cookie:CookieService
+               private cookie:CookieService,
+               private toaster:ToastrService
     ) { }
 
   ngOnInit(): void {
 
       this.navBar.emit("false");
-
-      console.log(navigator.geolocation);
 
   }
 
@@ -38,11 +38,21 @@ export class LoginComponent implements OnInit {
       if(response['status'] == 200){
           this.cookie.set('authToken',response['data'].authToken);
           response['data'].userDetails['clickCount'] = 0;
-          let userData = this.mainService.getUserFromLocalStorage();
+          let userData = JSON.parse(this.mainService.getUserFromLocalStorage());
           if(!userData){
             this.mainService.addUserToLocalStorage(response['data'].userDetails);
+          }else if(response['data'].userDetails['email'].emailId != userData.emailId){
+            this.mainService.addUserToLocalStorage(response['data'].userDetails);
           }
-            this.router.navigate(['/home']);
+            this.toaster.success("Redirecting",'',{
+              timeOut: 1000
+            });
+            setTimeout(()=>{
+              this.router.navigate(['/home']);
+            },1000)
+            
+      }else{
+        this.toaster.error(response['message'])
       }
       })
   }

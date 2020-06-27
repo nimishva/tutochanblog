@@ -19,7 +19,11 @@ import { PopUpComponent } from './pop-up/pop-up.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MainService } from './main.service';
 import { CookieService } from 'ngx-cookie-service';
+ 
+//Toaster Module
+import { ToastrModule } from 'ngx-toastr';
 
+//Social Media login Module
 import { SocialLoginModule,AuthServiceConfig ,GoogleLoginProvider } from 'angularx-social-login';
 
 
@@ -57,6 +61,7 @@ export function provideConfig() {
     SocialLoginModule,
     FormsModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path:"",redirectTo:'/home',pathMatch:"full"},
       {path:"home",component:HomeComponent},

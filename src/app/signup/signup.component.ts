@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { MainService } from '../main.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,8 @@ export class SignupComponent implements OnInit {
   constructor(
     
     private mainService:MainService,
-    private router:Router
+    private router:Router,
+    private toaster:ToastrService
 
     ) { }
 
@@ -31,9 +33,12 @@ export class SignupComponent implements OnInit {
     let resposne = this.mainService.signUp(data);
     resposne.subscribe((response)=>{
       if(response.status === 200){
+        this.toaster.success("User created",'',{
+          timeOut:1000
+        });
         this.router.navigate(['/login']);
       }else{
-        alert("Signup error :"+response.message);
+        this.toaster.error(response.message);
       }
     })
 

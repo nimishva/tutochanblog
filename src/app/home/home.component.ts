@@ -5,6 +5,7 @@ import { MainService } from '../main.service';
 import { CookieService } from 'ngx-cookie-service';
 
 import { MatMenu } from '@angular/material/menu'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
     
       private router:Router,
       private mainService:MainService,
-      private Cookie:CookieService
+      private Cookie:CookieService,
+      private toastr:ToastrService
 
       ) { }
 
@@ -46,8 +48,11 @@ export class HomeComponent implements OnInit {
 
   loadPost(){
 
-      if((this.userData.clickCount >= 3) && (!this.userData.subscribed)){
-        alert("Subscribe");
+      if((this.userData.clickCount == 3) && (!this.userData.subscribed)){
+        this.toastr.warning("Please subscribe",'',{
+          timeOut:2000,
+          positionClass: 'toast-bottom-center',
+        });
       }else{
         this.userData.clickCount += 1;
         this.mainService.addUserToLocalStorage(this.userData);
