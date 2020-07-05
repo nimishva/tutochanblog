@@ -3,8 +3,7 @@ import { MatBottomSheetModule ,
          MatListModule,
          MatInputModule,
          MatButtonModule,
-         MatMenuModule
-
+         MatMenuModule,
         } from '@angular/material';
 
   const materialComponents = [ 

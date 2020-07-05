@@ -34,7 +34,9 @@ export class HomeComponent implements OnInit {
 
     if(!this.mainService.checkSession())
     {
+
       this.userLogged = false;
+
     }else{
 
       this.userLogged = true;
@@ -43,27 +45,19 @@ export class HomeComponent implements OnInit {
      // console.log(this.firstChar);
 
     }
-    console.log(this.userData);
+     console.log(this.userLogged);
   }
 
   loadPost(){
 
-      if((this.userData.clickCount == 3) && (!this.userData.subscribed)){
-        this.toastr.warning("Please subscribe",'',{
-          timeOut:2000,
-          positionClass: 'toast-bottom-center',
-        });
-      }else{
-        this.userData.clickCount += 1;
-        this.mainService.addUserToLocalStorage(this.userData);
-        this.router.navigate(['/post']);  
-      }
-    
+     this.router.navigate(['/post']);  
   }
 
   logout(){
-    this.Cookie.deleteAll();
-    this.userLogged = false;
+
+     this.Cookie.deleteAll();
+     this.userLogged = false;
+
   }
 
 }

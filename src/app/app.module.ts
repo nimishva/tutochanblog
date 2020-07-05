@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 //Social Media login Module
 import { SocialLoginModule,AuthServiceConfig ,GoogleLoginProvider } from 'angularx-social-login';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 
 const config = new AuthServiceConfig([
@@ -48,7 +49,8 @@ export function provideConfig() {
     LoginComponent,
     SignupComponent,
     PopUpWindowComponent,
-    PopUpComponent
+    PopUpComponent,
+    NavigationBarComponent
 
   ],
   imports: [
@@ -61,6 +63,7 @@ export function provideConfig() {
     SocialLoginModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       {path:"",redirectTo:'/home',pathMatch:"full"},

@@ -1,24 +1,29 @@
 <div class="container p-5">
-    <form class="example-form text-center">
+    <form class="example-form text-center" [formGroup]="loginForm" (ngSubmit)="signIn()">
         <mat-form-field class="example-full-width">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Username">
+          <input matInput placeholder="Email" formControlName="emailInput" type="email">
+          <mat-error *ngIf="!loginForm.get('emailInput').valid">Enter valid email</mat-error>
         </mat-form-field>
       
         <mat-form-field class="example-full-width">
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password">
+          <input matInput placeholder="Password" formControlName="password" type="password">
+          <mat-error *ngIf="!loginForm.get('password').valid">Enter password</mat-error>
         </mat-form-field>
-            <button mat-raised-button color="warn">Login</button>
-        
-
+            <button mat-raised-button color="warn"  [disabled]="!loginForm.valid">Login</button>
+          <!-- {{loginForm.status}} -->
       </form>
 
 
       <div class="row">
-          <div class="col-md-12 pt-4 text-center">
-            Dont have account? signup with <a (click)="signUpGoogle()">Google <fa-icon [icon]="iconGoogle"></fa-icon></a>
+        <div class="col-md-6 pt-4 text-center">
+          <a (click)="redirect('/home')">Home</a>
+        </div>
+          <div class="col-md-6 pt-4 text-center">
+           signin with <a (click)="signUpGoogle()">Google <fa-icon [icon]="iconGoogle"></fa-icon></a>
           </div>
+
       </div>
 
 </div>

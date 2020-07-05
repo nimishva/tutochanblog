@@ -9,7 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MainService {
   public count    = 0;
-  public apiUrl   = "http://api.resfeber.online/api/v1/";
+  //public apiUrl   = "http://api.resfeber.online/api/v1/";
+  public apiUrl   = "http://localhost:3000/api/v1/";
   constructor( 
     private http:HttpClient,
     private Cookie:CookieService
@@ -38,6 +39,10 @@ export class MainService {
       return true;
     }
 
+  }
+
+  logout(){
+    
   }
 
 
