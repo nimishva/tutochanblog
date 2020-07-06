@@ -84,8 +84,29 @@ export class PopUpWindowComponent implements OnInit {
         let signInData = this.auth.signIn(GoogleLoginProvider.PROVIDER_ID);
         signInData.then((user)=>{
         console.log(user);
-        this.mainService.addUserToLocalStorage(user.email);
-        this.bottomSheetref.dismiss();
+     
+        let data = {
+          password  : "",
+          name      : user.firstName,
+          lastName  : user.lastName,
+          email     : user.email,
+          signUptype: "social" 
+        }
+
+        this.mainService.socialSignIn(data)
+        .subscribe((response)=>{
+          if(response.status == 200){
+            this.cookie.set('authToken',response.data.token);
+            this.mainService.addUserToLocalStorage(response.data.userData);
+            this.bottomSheetref.dismiss(response);
+            console.log(response);
+          }else{
+            console.log(response.message);
+          }
+          
+        })
+        //this.mainService.addUserToLocalStorage(user.email);
+        //this.bottomSheetref.dismiss();
      })
      .catch((err)=>{
        console.log(err);

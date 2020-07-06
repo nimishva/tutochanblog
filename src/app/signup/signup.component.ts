@@ -25,13 +25,15 @@ export class SignupComponent implements OnInit {
   onSubmit(form:NgForm){
     console.log(form.value);
     let data = {
-      password : form.value.password,
-      name     : form.value.name,
-      email    : form.value.email
+      password  : form.value.password,
+      name      : form.value.name,
+      email     : form.value.email,
+      signUptype: "" 
     }
 
     let resposne = this.mainService.signUp(data);
     resposne.subscribe((response)=>{
+      console.log(response);
       if(response.status === 200){
         this.toaster.success("User created",'',{
           timeOut:1000

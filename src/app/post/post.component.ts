@@ -30,6 +30,7 @@ export class PostComponent implements OnInit {
         });   
 
         bt.afterDismissed().subscribe((data)=>{
+          console.log(data);
           if(data.status == 200){
             console.log("Logged from bottom sheet");
             this.showUserProfileMenu = true;

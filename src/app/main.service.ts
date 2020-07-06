@@ -8,9 +8,9 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class MainService {
-  public count    = 0;
+  public count      = 0;
   public apiUrl   = "http://api.resfeber.online/api/v1/";
-  //public apiUrl   = "http://localhost:3000/api/v1/";
+  //public apiUrl     = "http://localhost:3000/api/v1/";
   constructor( 
     private http:HttpClient,
     private Cookie:CookieService
@@ -29,6 +29,12 @@ export class MainService {
      return this.http.post(`${this.apiUrl}users/signIn`,data)
 
   }//SignIn  ends here...
+
+   //social Signin
+   public socialSignIn(data):any{
+     return this.http.post(`${this.apiUrl}users/socialSignIn`,data);
+   }
+
 
   public checkSession(){
 
