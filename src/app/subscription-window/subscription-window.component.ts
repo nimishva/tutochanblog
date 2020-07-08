@@ -25,25 +25,19 @@ export class SubscriptionWindowComponent implements OnInit {
         "contact": "9999999999"
     },
     "notes": {
-        "address": "Razorpay Corporate Office"
+        "address": "Tutochan cochin"
     },
     "theme": {
         "color": "#F37254"
     }
-  }
+  } // razorPayOptions ends here
 
   constructor(
 
     private mainService : MainService,
     private bottomSheetref:MatBottomSheetRef<SubscriptionWindowComponent>,
     
-
-  ) { 
-
-
-
-
-  }
+  ) { } //Constructor ends here
 
   ngOnInit() {
   }
@@ -58,13 +52,10 @@ export class SubscriptionWindowComponent implements OnInit {
     let rzrp = new Razorpay(this.razorPayOptions)
     rzrp.open();
   })
-  
-  console.log("Open");
-
   } //Checkout ends here
 
   razorHandler(res){
     console.log(res);
-  }
+  } //razorHandler ends here
 
 }

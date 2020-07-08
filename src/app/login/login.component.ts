@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { MainService } from '../main.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { differenceInDays } from 'date-fns';
+import { MatBottomSheet } from '@angular/material';
+import { SubscriptionWindowComponent } from '../subscription-window/subscription-window.component';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor( private mainService:MainService,
                private router:Router,
                private cookie:CookieService,
-               private toaster:ToastrService
+               private toaster:ToastrService,
+               private popUp:MatBottomSheet
     ) { }
 
   ngOnInit(): void {
@@ -34,22 +38,39 @@ export class LoginComponent implements OnInit {
 
       this.mainService.signIn(data)
       .subscribe((response)=>{
-
+          console.log(response);
       if(response['status'] == 200){
           this.cookie.set('authToken',response['data'].authToken);
           response['data'].userDetails['clickCount'] = 0;
-          let userData = JSON.parse(this.mainService.getUserFromLocalStorage());
+          let userData = this.mainService.getUserFromLocalStorage();
           if(!userData){
             this.mainService.addUserToLocalStorage(response['data'].userDetails);
           }else if(response['data'].userDetails['email'].emailId != userData.emailId){
             this.mainService.addUserToLocalStorage(response['data'].userDetails);
           }
+
+          let createdDate = new Date(response['data'].userDetails.createdOn);
+          let currentDate = new Date();
+          //differenceInDays(new Date(response['data'].userDetails.cteatedOn),new Date())
+          let days = differenceInDays(currentDate,createdDate);
+          if(days > 7){
+            this.toaster.success("Free trial limit exceeded ,Please subscribe",'',{
+              timeOut: 2000,
+              positionClass:'toast-top-center'
+            });
+            let bt = this.popUp.open(SubscriptionWindowComponent);
+            bt.afterDismissed().subscribe(()=>{
+              this.router.navigate(['/home']);
+            })
+          }else{
             this.toaster.success("Redirecting",'',{
               timeOut: 1000
             });
             setTimeout(()=>{
               this.router.navigate(['/home']);
             },1000)
+          }
+      
             
       }else{
         this.toaster.error(response['message'])

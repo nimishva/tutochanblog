@@ -21,7 +21,7 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
 
-       this.userData = JSON.parse(this.mainService.getUserFromLocalStorage());
+       this.userData = this.mainService.getUserFromLocalStorage();
         console.log(this.userData);
       if(this.mainService.checkSession()){
 

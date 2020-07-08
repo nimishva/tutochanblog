@@ -61,7 +61,7 @@ export class MainService {
     localStorage.setItem('userData',JSON.stringify(data));
   }
   getUserFromLocalStorage(){
-    return localStorage.getItem('userData');
+    return JSON.parse(localStorage.getItem('userData'));
   }
 
 }

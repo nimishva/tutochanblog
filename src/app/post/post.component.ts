@@ -3,7 +3,11 @@ import { FormControl } from '@angular/forms';
 import { MatDialog,MatDialogConfig, MatBottomSheet } from '@angular/material';
 import { PopUpComponent } from '../pop-up/pop-up.component';
 import { PopUpWindowComponent } from '../pop-up-window/pop-up-window.component';
+import { SubscriptionWindowComponent } from '../subscription-window/subscription-window.component'
+import { differenceInDays } from 'date-fns';
 import { MainService } from '../main.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post',
@@ -25,6 +29,7 @@ export class PostComponent implements OnInit {
     if(!this.mainService.checkSession()){
       if(scrollPosition >= (max - (max/1.8)))
       {
+       
         const bt = this.popUp.open(PopUpWindowComponent,{
           disableClose:true
         });   
@@ -41,6 +46,13 @@ export class PostComponent implements OnInit {
           
         })
       } // Checking scroll position
+    }else{
+      
+      if(scrollPosition >= (max - (max/1.8)))
+      {
+        console.log("ssdf");
+      this.checkTrailPeriod();
+      }
     }
 
     } // onWindowScroll ends heres
@@ -49,22 +61,44 @@ export class PostComponent implements OnInit {
   
 
   constructor( private popUp:MatBottomSheet,
-               private mainService:MainService 
+               private mainService:MainService,
+               private toaster:ToastrService,
+               private router:Router
               ) { }
 
   ngOnInit(): void {
     if(this.mainService.checkSession()){
-      this.showUserProfileMenu = true
+      this.showUserProfileMenu = true;
     }
-    this.loggedUser = localStorage.getItem('userData');
-    //console.log(this.loggedUser)
+    this.loggedUser = this.mainService.getUserFromLocalStorage();
   
   } //ngOnInit
 
   showHideNavBar(event){
     console.log(event);
     this.showUserProfileMenu = event;
+  } //ShowHideNavBar ends here
+
+
+  checkTrailPeriod(){
+          console.log("Initialising");
+          console.log(this.loggedUser);
+          let createdDate   = new Date(this.loggedUser.createdOn);
+          let currentDate   = new Date();
+          let days          = differenceInDays(currentDate,createdDate);
+        //  let userData = JSON.parse(this.loggedUser);
+          if(days > 7){
+            console.log("fkjgk");
+            this.toaster.success("Free trial limit exceeded ,Please subscribe",'',{
+              timeOut: 2000,
+              positionClass:'toast-top-center'
+            });
+            let bt = this.popUp.open(SubscriptionWindowComponent);
+            bt.afterDismissed().subscribe(()=>{
+                this.router.navigate(['/home']);
+            })
+          } //Condition check ends here
   }
 
-}
+}//Main class ends here
 

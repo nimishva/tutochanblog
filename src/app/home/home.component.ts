@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
 
-      this.userData = JSON.parse(this.mainService.getUserFromLocalStorage());
+      this.userData = this.mainService.getUserFromLocalStorage();
 
     if(!this.mainService.checkSession())
     {
