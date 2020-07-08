@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { MainService } from '../main.service';
 import { CookieService } from 'ngx-cookie-service';
 
+import { MatBottomSheet } from '@angular/material';
 import { MatMenu } from '@angular/material/menu'
 import { ToastrService } from 'ngx-toastr';
+import { SubscriptionWindowComponent } from '../subscription-window/subscription-window.component';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,7 @@ export class HomeComponent implements OnInit {
       private router:Router,
       private mainService:MainService,
       private Cookie:CookieService,
+      private popUp:MatBottomSheet,
       private toastr:ToastrService
 
       ) { }
@@ -51,13 +54,18 @@ export class HomeComponent implements OnInit {
   loadPost(){
 
      this.router.navigate(['/post']);  
-  }
+  } //Load posts
 
   logout(){
 
      this.Cookie.deleteAll();
      this.userLogged = false;
 
-  }
+  } //Logout ends here
 
-}
+  openSubscr()
+  {
+    this.popUp.open(SubscriptionWindowComponent);
+  }//  
+
+} //Main Class ends here

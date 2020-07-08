@@ -26,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 //Social Media login Module
 import { SocialLoginModule,AuthServiceConfig ,GoogleLoginProvider } from 'angularx-social-login';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { SubscriptionWindowComponent } from './subscription-window/subscription-window.component';
 
 
 const config = new AuthServiceConfig([
@@ -50,7 +51,8 @@ export function provideConfig() {
     SignupComponent,
     PopUpWindowComponent,
     PopUpComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    SubscriptionWindowComponent
 
   ],
   imports: [
@@ -85,7 +87,7 @@ export function provideConfig() {
     }
 
   ],
-  entryComponents:[PopUpWindowComponent],
+  entryComponents:[PopUpWindowComponent,SubscriptionWindowComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,20 @@
+.container {
+
+}
+.pricing_card{
+    width:350px;
+    text-align: center;
+    height: 250px;
+    background-color:#ccc;
+    margin:.1em ;
+}
+
+.circle{
+        width:100px;
+        height:100px;
+        background-color: firebrick;
+}
+
+.mat-bottom-sheet-container{
+    background:transparent!important;
+}

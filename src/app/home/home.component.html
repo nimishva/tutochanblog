@@ -14,6 +14,9 @@
           <a class="nav-link" [routerLink]="['/home']">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" (click)="openSubscr()">Subscribe</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" [routerLink]="['/signup']">Signup</a>
         </li>
         <li class="nav-item" *ngIf="!userLogged">

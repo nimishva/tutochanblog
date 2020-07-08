@@ -9,8 +9,8 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MainService {
   public count      = 0;
-  public apiUrl   = "http://api.resfeber.online/api/v1/";
-  //public apiUrl     = "http://localhost:3000/api/v1/";
+  //public apiUrl   = "http://api.resfeber.online/api/v1/";
+   public apiUrl     = "http://localhost:3000/api/v1/";
   constructor( 
     private http:HttpClient,
     private Cookie:CookieService
@@ -36,6 +36,11 @@ export class MainService {
    }
 
 
+   public getRazorPayOrderId(data):any{
+     return this.http.post(`${this.apiUrl}subscr/createOrder`,data)
+   }
+
+
   public checkSession(){
 
     if(this.Cookie.get('authToken')=== "" || this.Cookie.get('authToken')=== undefined || this.Cookie.get('authToken')=== null )
@@ -45,7 +50,7 @@ export class MainService {
       return true;
     }
 
-  }
+  } //CheckSession ends here
 
   logout(){
 
